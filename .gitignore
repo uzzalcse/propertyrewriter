@@ -1,0 +1,51 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.so
+*.egg
+*.eggs
+dist/
+build/
+*.bak
+
+# Virtual Environment
+venv/
+env/
+.venv/
+
+# Django
+*.log
+*.pot
+*.pyc
+*.pyo
+*.db
+*.sqlite3
+*.log
+*.pid
+*.seed
+*.bak
+
+# Docker
+docker-compose.override.yml
+Dockerfile*
+.dockerignore
+*.docker
+
+# Local configuration files
+.local
+
+# Django settings file that should not be shared
+local_settings.py
+
+# Coverage reports
+.coverage
+*.coveragerc
+
+# Misc
+*.swp
+*.swo
+*~
+.idea/
+.vscode/

@@ -1,0 +1,44 @@
+services:
+  analyzer:
+    build: .
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@trip_scraper_db_1:5432/trip_scraper
+      - OLLAMA_HOST=http://ollama:11434
+    depends_on:
+      - ollama
+    networks:
+      - trip_scraper_default
+    command: /bin/bash  # Default command to keep the container running, replace with actual command later
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - trip_scraper_default
+    init: true  # Proper init process for Ollama
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: trip_scraper
+    networks:
+      - trip_scraper_default
+
+volumes:
+  ollama_data:
+
+networks:
+  trip_scraper_default:
+    external: true
